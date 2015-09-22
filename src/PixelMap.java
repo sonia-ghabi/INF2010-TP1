@@ -114,7 +114,7 @@ public class PixelMap
 		height = h; 
 		width = w;
 		
-		imageData =new AbstractPixel[h][w];
+		imageData=new AbstractPixel[h][w];
 		
 		for(int row=0; row<height; row++)
 		{

@@ -19,7 +19,7 @@ public class FormValidator
 	 */
 	public static void main(String[] args) 
 	{
-		/*
+		
 		// Longueur du code
 		final int codeLength = 5;
 		
@@ -117,8 +117,7 @@ public class FormValidator
 		in.close();
 		di.dispose();
 	}
-	*/
-	}
+	
 	
 	/**
 	 * Genere et retourne un string de longueur length avec des caracteres aleatoires
@@ -126,7 +125,7 @@ public class FormValidator
 	 * @param length : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
 	 */
 
-	/*
+	
 	private static String generateCode(int length)
 	{
 		if (length > 10) return null;
@@ -135,17 +134,23 @@ public class FormValidator
 		
 		Random generator = new Random( System.nanoTime() );
 		
-		// compl�ter
-		
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		System.out.println(generator.nextInt(alphabet.length()));
+		String chaine = "";
+		for(int i = 0 ; i < length ; i++){
+			charKey[i] = alphabet.charAt(generator.nextInt(alphabet.length()));
+			chaine += charKey[i];
+		}
+		return chaine;
 	}
-	*/
+	
 	
 	
 	/**
 	 * Genere et retourne plusieurs nombres aleatoires entre 0 et 9 (inclus) 
 	 * @param nb : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
 	 */
-	/*
+	
 	private static int[] generateTransform(int nb)
 	{
 		if (nb > 10) return null;
@@ -153,10 +158,11 @@ public class FormValidator
 		int[] charTransform = new int[ nb ];
 		
 		Random generator = new Random( System.nanoTime() );
-		
-		// compl�ter
-		
+		for(int i = 0 ;  i < nb ; i++){
+			charTransform[i]=generator.nextInt(10);
+		}
+		return charTransform;
 	}
-	*/
+	
 
 }
