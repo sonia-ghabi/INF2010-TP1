@@ -186,10 +186,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		{
 			for(int col=0; col<width; col++)
 			{
-				double X = Math.cos(angleRadian)*col-Math.sin(angleRadian)*row+(-Math.cos(angleRadian)*x+Math.sin(angleRadian)*y+x);
-				double Y = Math.sin(angleRadian)*col+Math.cos(angleRadian)*row+(-Math.sin(angleRadian)*x-Math.cos(angleRadian)*y+y);
-				if(X > 0 && Y > 0 && Y < height && X < width){
-					nouveauPm.imageData[(int)Y][(int)X] = this.getPixel(row, col);
+				double X = Math.cos(angleRadian)*col+Math.sin(angleRadian)*row+(-Math.cos(angleRadian)*x-Math.sin(angleRadian)*y+x);
+				double Y = -Math.sin(angleRadian)*col+Math.cos(angleRadian)*row+(Math.sin(angleRadian)*x-Math.cos(angleRadian)*y+y);
+				if((int)X >= 0 && (int)Y >= 0 && (int)Y < height && (int)X < width){
+					nouveauPm.imageData[row][col] = this.getPixel((int)Y, (int)X);
+				}
+				
+				else {
+					System.out.println("(" + (int)X +", " + (int)Y + ")");
 				}
 			}
 		}

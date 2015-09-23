@@ -45,8 +45,6 @@ public class Main
 		PixelMapPlus pmp = new PixelMapPlus("./ed.ppm");
 		
 		PixelMapPlus hpmp = new PixelMapPlus( pmp );
-		hpmp.rotate(150, 150, (-Math.PI/3));
-		/*
 		hpmp.zoomIn(0, 0, 2);
 		hpmp.resize(hpmp.width/2, hpmp.height/2);
 		//new DisplayImageWindow(wName, hpmp);
@@ -73,10 +71,8 @@ public class Main
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		*/
 		
-		//String wName = "Edsger Dijkstra";
-		new DisplayImageWindow(wName, hpmp);
+		new DisplayImageWindow(wName, pmp);
 		
 	}
 }

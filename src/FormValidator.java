@@ -135,7 +135,6 @@ public class FormValidator
 		Random generator = new Random( System.nanoTime() );
 		
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
-		System.out.println(generator.nextInt(alphabet.length()));
 		String chaine = "";
 		for(int i = 0 ; i < length ; i++){
 			charKey[i] = alphabet.charAt(generator.nextInt(alphabet.length()));
@@ -160,6 +159,7 @@ public class FormValidator
 		Random generator = new Random( System.nanoTime() );
 		for(int i = 0 ;  i < nb ; i++){
 			charTransform[i]=generator.nextInt(10);
+			System.out.println(charTransform[i]);
 		}
 		return charTransform;
 	}
