@@ -56,24 +56,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void negate()
 	{
+		// On parcours tous les pixels de l'image et convertit chaque pixel en négatif
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
-				if( imageType == ImageType.BW ){
-					imageData[row][col] = ((BWPixel)(this.getPixel(row, col))).Negative();
-				} else if(imageType == ImageType.Gray ){
-					imageData[row][col] = ((GrayPixel)(this.getPixel(row, col))).Negative();
-				} else if(imageType == ImageType.Color){					
-					imageData[row][col] = ((ColorPixel)(this.getPixel(row, col))).Negative();
-				}
-				else{
-					imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).Negative();
-				}
+				imageData[row][col] = (this.getPixel(row, col)).Negative();
 			}
 		}
-		// compl�ter
-		
 	}
 	
 	/**
@@ -81,24 +71,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToBWImage()
 	{
+		// On parcours tous les pixels de l'image et convertit chaque pixel en noir et blanc
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
-				if( imageType == ImageType.BW ){
-					//imageData[row][col] = ((BWPixel)(this.getPixel(row, col))).Negative();
-				} else if(imageType == ImageType.Gray ){
-					imageData[row][col] = ((GrayPixel)(this.getPixel(row, col))).toBWPixel();
-				} else if(imageType == ImageType.Color){					
-					imageData[row][col] = ((ColorPixel)(this.getPixel(row, col))).toBWPixel();
-				}
-				else{
-					imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toBWPixel();
-				}
+				imageData[row][col] = (this.getPixel(row, col)).toBWPixel();
 			}
 		}
-		// compl�ter
-		
 	}
 	
 	/**
@@ -106,24 +86,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToGrayImage()
 	{
+		// On parcours tous les pixels de l'image et convertit chaque pixel en ton de gris
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
-				if( imageType == ImageType.BW ){
-					imageData[row][col] = ((BWPixel)(this.getPixel(row, col))).toGrayPixel();
-				} else if(imageType == ImageType.Gray ){
-					//imageData[row][col] = ((GrayPixel)(this.getPixel(row, col))).toGrayPixel();
-				} else if(imageType == ImageType.Color){					
-					imageData[row][col] = ((ColorPixel)(this.getPixel(row, col))).toGrayPixel();
-				}
-				else{
-					imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toGrayPixel();
-				}
+				imageData[row][col] = (this.getPixel(row, col)).toGrayPixel();
 			}
-		}
-		// compl�ter
-		
+		}		
 	}
 	
 	/**
@@ -131,45 +101,26 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToColorImage()
 	{
+		// On parcours tous les pixels de l'image et convertit chaque pixel en couleur
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
-				if( imageType == ImageType.BW ){
-					imageData[row][col] = ((BWPixel)(this.getPixel(row, col))).toColorPixel();
-				} else if(imageType == ImageType.Gray ){
-					imageData[row][col] = ((GrayPixel)(this.getPixel(row, col))).toColorPixel();
-				} else if(imageType == ImageType.Color){					
-					//imageData[row][col] = ((ColorPixel)(this.getPixel(row, col))).toColorPixel();
-				}
-				else{
-					imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toColorPixel();
-				}
+				imageData[row][col] = (this.getPixel(row, col)).toColorPixel();
 			}
 		}
-		// compl�ter
-		
 	}
 	
 	public void convertToTransparentImage()
 	{
+		// On parcours tous les pixels de l'image et convertit chaque pixel en transparent
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
-				if( imageType == ImageType.BW ){
-					imageData[row][col] = ((BWPixel)(this.getPixel(row, col))).toTransparentPixel();
-				} else if(imageType == ImageType.Gray ){
-					imageData[row][col] = ((GrayPixel)(this.getPixel(row, col))).toTransparentPixel();
-				} else if(imageType == ImageType.Color){					
-					imageData[row][col] = ((ColorPixel)(this.getPixel(row, col))).toTransparentPixel();
-				}
-				else{
-					//imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toTransparentPixel();
-				}
+				imageData[row][col] = (this.getPixel(row, col)).toTransparentPixel();
 			}
 		}
-		// compl�ter
 	}
 	
 	/**
@@ -181,7 +132,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void rotate(int x, int y, double angleRadian)
 	{
-		PixelMapPlus nouveauPm = new PixelMapPlus(this.getType(), height, width);
+		PixelMapPlus newPm = new PixelMapPlus(this.getType(), height, width);
+		
+		// On parcours tous les pixels de la nouvelle image et applique la formule pour trouver quel 
+		// est le pixel correspondant dans l'image d'origine
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
@@ -189,15 +143,13 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				double X = Math.cos(angleRadian)*col+Math.sin(angleRadian)*row+(-Math.cos(angleRadian)*x-Math.sin(angleRadian)*y+x);
 				double Y = -Math.sin(angleRadian)*col+Math.cos(angleRadian)*row+(Math.sin(angleRadian)*x-Math.cos(angleRadian)*y+y);
 				if((int)X >= 0 && (int)Y >= 0 && (int)Y < height && (int)X < width){
-					nouveauPm.imageData[row][col] = this.getPixel((int)Y, (int)X);
-				}
-				
-				else {
-					System.out.println("(" + (int)X +", " + (int)Y + ")");
+					newPm.imageData[row][col] = this.getPixel((int)Y, (int)X);
 				}
 			}
 		}
-		this.imageData = nouveauPm.imageData;
+		clearData();
+		// On remplace l'ancienne image par la nouvelle
+		this.imageData = newPm.imageData;
 	}
 	
 	/**
@@ -209,79 +161,73 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	{
 		if(w < 0 || h < 0)
 			throw new IllegalArgumentException();
-		else{
-			if(height>h && width>h){
-				int propH = height/h;
-				int propW = width/w;
-				int cptPropH =0;
-				int cptPropW =0;
-				for(int row=0; row<h && cptPropH<height; row++)
-				{
-					for(int col=0; col<w && cptPropW<width; col++)
-					{
-						if( imageType == ImageType.BW ){
-							imageData[row][col] = ((BWPixel)(this.getPixel(cptPropH, cptPropW)));
-						} else if(imageType == ImageType.Gray ){
-							imageData[row][col] = ((GrayPixel)(this.getPixel(cptPropH, cptPropW)));
-						} else if(imageType == ImageType.Color){					
-							imageData[row][col] = ((ColorPixel)(this.getPixel(cptPropH, cptPropW)));
-						}
-						else{
-							//imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toTransparentPixel();
-						}
-						cptPropW+=propW;
-					}
-					cptPropH+=propH;
-					cptPropW=0;
-				}
-			} else if(height<h && width<w){
-				int propH = h/height;
-				int propW = w/width;
-				int cptPropH =0;
-				int cptPropW =0;
-				int cptH=0;
-				int cptW=0;
-				AbstractPixel[][] newImageData = new AbstractPixel[h][w];
-					for(int row=0; row<h && cptPropH<height; row++)
-					{
-						if(cptH>=propH){
-							cptH=0;
-							cptPropH++;
-						}
-						for(int col=0; col<w && cptPropW<width; col++)
-						{	
-							if(cptW>=propW){
-								cptW=0;
-								cptPropW++;
-							}
-							if( imageType == ImageType.BW ){
-								newImageData[row][col] = ((BWPixel)(this.getPixel(cptPropH, cptPropW)));
-							} else if(imageType == ImageType.Gray ){
-								newImageData[row][col] = ((GrayPixel)(this.getPixel(cptPropH, cptPropW)));
-							} else if(imageType == ImageType.Color){					
-								newImageData[row][col] = ((ColorPixel)(this.getPixel(cptPropH, cptPropW)));
-							}
-							else{
-								//imageData[row][col] = ((TransparentPixel)(this.getPixel(row, col))).toTransparentPixel();
-							}
-							cptW++;
-						}
-						cptH++;
-						cptPropW=0;
-						cptW=0;
-					}
-					height=h;
-					width=w;
-					AllocateMemory(this.getType(), h, w);
-					imageData=newImageData;
-			}
+		// On crée une nouvelle image avec la nouvelle hauteur et largeur
+		PixelMapPlus newPm = new PixelMapPlus(this.getType(), h, w);
 		
-			height=h;
-			width=w;
+		// Indices pour l'image d'origine
+		int rowOrigin = 0;
+		int colOrigin = 0;
+		
+		// Si on a un rapetissement de l'image
+		if(height>h && width>h){
 			
+			// On calcule la proportion du rapetissement
+			int propH = height/h;
+			int propW = width/w;
+			
+			for(int row=0; row<h && rowOrigin<height; row++)
+			{
+				for(int col=0; col<w && colOrigin<width; col++)
+				{
+					newPm.imageData[row][col] = this.getPixel(rowOrigin, colOrigin);
+					// On saute jusqu'au prochain pixel en colonne à copier (qui n'est pas le suivant, cela dépend
+					// de la proportion du rapetissement)
+					colOrigin+=propW;
+				}
+				// On saute jusqu'au prochain pixel en ligne à copier (qui n'est pas le suivant, cela dépend
+				// de la proportion du rapetissement)
+				// On réinitialise la position de la colonne
+				rowOrigin+=propH;
+				colOrigin=0;
+			}
+		// Si on a un agrandissement
+		} else if(height<h && width<w){
+			
+			// On calcule la proportion de l'agrandissement
+			int propH = h/height;
+			int propW = w/width;;
+			
+			// Ces compteurs permettent de suivre combien de fois le même pixel a été copié
+			int cptH = 0;
+			int cptW = 0;
+			
+			for(int row = 0; row < h && rowOrigin < height; row++)
+			{
+				// Si on a copié assez de fois le pixel en hauteur, on réinitialise le compteur et on peut incrémenter la ligne
+				if(cptH >= propH){
+					cptH = 0;
+					rowOrigin++;
+				}
+				for(int col = 0; col < w && colOrigin < width; col++)
+				{	
+					// Si on a copié assez de fois le pixel en largeur, on réinitialise le compteur et on peut incrémenter la colonne
+					if(cptW >= propW){
+						cptW = 0;
+						colOrigin++;
+					}
+					newPm.imageData[row][col] = this.getPixel(rowOrigin, colOrigin);
+					cptW++;
+				}
+				cptH++;
+				colOrigin = 0;
+				cptW = 0;
+			}
 		}
-		// compl�ter
-		
+		// On remplace les attributs de l'image d'origine par les nouveaux
+		height = h;
+		width = w;
+		clearData();
+		imageData = newPm.imageData;
 	}
 	
 	/**
@@ -291,9 +237,9 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	{
 		int rowPm = 0;
 		int colPm = 0;
-		for(int row=row0; row<height && rowPm<pm.height; row++)
+		for(int row = row0; row < height && rowPm < pm.height; row++)
 		{
-			for(int col=col0; col<width && colPm<pm.width ; col++)
+			for(int col = col0; col < width && colPm < pm.width ; col++)
 			{
 				imageData[row][col] = pm.getPixel(rowPm, colPm);
 				colPm++;
@@ -301,8 +247,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			rowPm++;
 			colPm=0;
 		}
-		// compl�ter
-		
 	}
 	
 	/**
@@ -313,14 +257,16 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		if(w < 0 || h < 0)
 			throw new IllegalArgumentException();
 		else{
-			PixelMapPlus nouveauPm = new PixelMapPlus(this.getType(), h, w);
-			nouveauPm.inset(this, 0, 0);
-			height = nouveauPm.height;
-			width = nouveauPm.width;
-			imageData = nouveauPm.imageData;
-		}
-		// compl�ter		
-		
+			// On crée une image blanche de hauteur et largeur h et w
+			PixelMapPlus newPm = new PixelMapPlus(this.getType(), h, w);
+			// Dans laquelle on insère notre image d'origine à la position (0, 0)
+			newPm.inset(this, 0, 0);
+			// On remplace les attributs de l'image d'origine par les nouveaux
+			height = newPm.height;
+			width = newPm.width;
+			clearData();
+			imageData = newPm.imageData;
+		}		
 	}
 	
 	/**
@@ -328,33 +274,21 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
-		for(int row=0; row<rowOffset; row++)
-		{
-			for(int col=0; col<colOffset; col++)
-			{
-				if(this.getType() == ImageType.BW ){
-					imageData[row][col]=new BWPixel(true);
-				} else if(this.getType() == ImageType.Gray ) {
-					imageData[row][col] =new GrayPixel(255);
-				} else if(this.getType()== ImageType.Color ){					
-					int[] tableau = {255, 255, 255};
-					imageData[row][col] = new ColorPixel(tableau);
-				} else{
-					int[] rgba = {255, 255, 255, 255};
-					imageData[row][col] = new TransparentPixel(rgba);
-				}
-			}
-		}
-		
+		// On crée une image blanche de hauteur et largeur h et w
+		PixelMapPlus newPm = new PixelMapPlus(this.getType(), height, width);
+		// On copie les pixels à partir de l'offset
 		for(int row=rowOffset; row<height; row++)
 		{
 			for(int col=colOffset; col<width; col++)
 			{
-				imageData[row][col]=getPixel(row, col);
+				newPm.imageData[row][col]=getPixel(row, col);
 			}
 		}
-		// compl�ter		
-		
+		// On remplace les attributs de l'image d'origine par les nouveaux
+		height = newPm.height;
+		width = newPm.width;
+		clearData();
+		imageData = newPm.imageData;		
 	}
 	
 	/**
@@ -367,80 +301,90 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	{
 		if(zoomFactor < 1.0)
 			throw new IllegalArgumentException();
+		
+		// On sauvegarde la hauteur et largeur initiale
 		int widthInit = width;
 		int heightInit = height;
-		double widthCadre = width/zoomFactor;
-		double heightCadre = height/zoomFactor;
-		int coinSupGaucheX = (int)(x-(widthCadre/2));
-		int coinSupGaucheY = (int)(y-(heightCadre/2));
 		
-		int coinSupDroitX = coinSupGaucheX+ (int)widthCadre;
-		int coinSupDroitY = coinSupGaucheY;
-	
-		int coinInfGaucheX = coinSupGaucheX ;
-		int coinInfGaucheY = coinSupGaucheY + (int)heightCadre;
+		// On calcule la largeur et la hauteur de la zone à zoomer
+		double frameWidth = width/zoomFactor;
+		double frameHeight = height/zoomFactor;
 		
-		int coinInfDroitX = coinSupDroitX;
-		int coinInfDroitY = coinInfGaucheY;
+		// On définit la position de certains points stratégiques
+		int upLeftCornerX = (int)(x-(frameWidth/2));
+		int upLeftCornerY = (int)(y-(frameHeight/2));
+		int upRightCornerX = upLeftCornerX+ (int)frameWidth;
+		int downLeftCornerY = upLeftCornerY + (int)frameHeight;
 		
-		if(coinSupGaucheX<0){
+		// Si le coin supérieur gauche est hors de l'image sur la largeur, on déplace ce point 
+		// (et par conséquent le cadre) à l'origine
+		if(upLeftCornerX < 0){
 			/*
 			 * Version logique :
-			 * widthCadre+=coinSupGaucheX;
-			 * coinSupGaucheX = 0;
+			 * widthCadre+=upLeftCornerX;
+			 * upLeftCornerX = 0;
 			 */
-			coinSupGaucheX = 0;
+			upLeftCornerX = 0;
 		}
-		if(coinSupGaucheY<0){
+		// Si le coin supérieur gauche est hors de l'image sur la hauteur, on déplace ce point 
+		// (et par conséquent le cadre) à l'origine
+		if(upLeftCornerY < 0){
 			/*
 			 * Version logique : 
-			 * heightCadre+=coinSupGaucheY;
-			 * coinSupGaucheY = 0;
+			 * heightCadre+=upLeftCornerY;
+			 * upLeftCornerY = 0;
 			 */
-			coinSupGaucheY = 0;
+			upLeftCornerY = 0;
 		}
 		
-		if(coinSupDroitX>width){
-			int ecart = coinSupDroitX-width;
-			coinSupDroitX = width;	
-			coinSupGaucheX -= ecart;			
+		// Si le coin supérieur droit est hors de l'image sur la largeur, on déplace ce point 
+		// (et par conséquent le cadre) on ramène ce point au bord et déplace le cadre
+		if(upRightCornerX > width){
+			int gap = upRightCornerX-width;
+			upRightCornerX = width;	
+			upLeftCornerX -= gap;			
 			/*
 			 * Version logique
-			 * coinSupDroitX = width;
-			 * widthCadre=width-coinSupGaucheX;
+			 * upRightCornerX = width;
+			 * widthCadre=width-upLeftCornerX;
 			 */
 		}
-		if(coinInfGaucheY>height){
+		// Si le coin inférieur gauche est hors de l'image sur la hauteur, on déplace ce point 
+		// (et par conséquent le cadre) on ramène ce point au bord et déplace le cadre
+		if(downLeftCornerY>height){
 			/*
 			 * Version logique
 			 * coinInfGaucheY = height;
 			 * heightCadre=height-coinSupGaucheY;
 			 */
-			int ecart = coinInfGaucheY-height;
-			coinInfGaucheY = height;
-			coinSupGaucheY -= ecart;
+			int gap = downLeftCornerY-height;
+			downLeftCornerY = height;
+			upLeftCornerY -= gap;
 		}
 		
-		PixelMapPlus nouveauPm = new PixelMapPlus(this.getType(),(int)heightCadre, (int)widthCadre);
+		// On crée une nouvelle image qui est le cadre du zoom
+		PixelMapPlus newPm = new PixelMapPlus(this.getType(),(int)frameHeight, (int)frameWidth);
 			
-		int rowCadre= coinSupGaucheY;
-		int colCadre = coinSupGaucheX-1;
-		for(int row=0; row<nouveauPm.height ; row++)
+		int rowFrame= upLeftCornerY;
+		int colFrame = upLeftCornerX-1;
+		// On copie seulement les pixels à zoomer
+		for(int row=0; row<newPm.height ; row++)
 		{
-			for(int col=0; col<nouveauPm.width ; col++)
+			for(int col=0; col<newPm.width ; col++)
 			{
-				colCadre++;
-				nouveauPm.imageData[row][col] = this.getPixel(rowCadre, colCadre);
+				colFrame++;
+				newPm.imageData[row][col] = this.getPixel(rowFrame, colFrame);
 			}
-			rowCadre++;
-			colCadre = coinSupGaucheX-1 ;
+			rowFrame++;
+			colFrame = upLeftCornerX-1 ;
 		}
-		height = nouveauPm.height;
-		width = nouveauPm.width;
-		imageData = nouveauPm.imageData;
 		
+		// On remplace les attributs de l'image d'origine par les nouveau
+		height = newPm.height;
+		width = newPm.width;
+		clearData();
+		imageData = newPm.imageData;
+		// Et on resize pour avoir la bonne taille
 		resize(widthInit, heightInit);
-		// compl�ter
-		
 	}
 }

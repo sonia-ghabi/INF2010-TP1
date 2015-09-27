@@ -94,7 +94,6 @@ public class PixelMap
 			height = width = 0;
 			return;
 		}
-		
 		AllocateMemory(type, h, w);
 	}
 	
@@ -108,36 +107,29 @@ public class PixelMap
 	{
 		if( !(h >0 && w > 0) )
 			return;
-		
-		// check if must be kept 
-		imageType = type; 
+
 		height = h; 
-		width = w;
+		width = w;	
+		imageData = new AbstractPixel[h][w];
 		
-		imageData=new AbstractPixel[h][w];
-		
+		// Pour chaque pixel de l'image on crée un nouveau pixel blanc du type adéquat
 		for(int row=0; row<height; row++)
 		{
 			for(int col=0; col<width; col++)
 			{
 				if( type == ImageType.BW ){
-					imageData[row][col]=new BWPixel(true);
-				}
-				else if( type == ImageType.Gray )
-					imageData[row][col] =new GrayPixel(255);
-				else if( type == ImageType.Color )
-				{					
-					int[] tableau = {255, 255, 255};
-					imageData[row][col] = new ColorPixel(tableau);
-				}
-				else
-				{
+					imageData[row][col] = new BWPixel(true);
+				} else if( type == ImageType.Gray ){
+					imageData[row][col] = new GrayPixel(255);
+				} else if( type == ImageType.Color ){					
+					int[] table = {255, 255, 255};
+					imageData[row][col] = new ColorPixel(table);
+				} else {
 					int[] rgba = {255, 255, 255, 255};
 					imageData[row][col] = new TransparentPixel(rgba);
 				}
 			}
 		}
-		// à compléter
 	}
 	
 	/**
@@ -146,8 +138,6 @@ public class PixelMap
 	public void clearData()
 	{
 		imageType = null;
-		// à compléter
-		
 	}
 	
 	/**
