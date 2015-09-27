@@ -71,8 +71,10 @@ public class Main
 		new DisplayImageWindow(wName, pmp);	
 		
 		// Nos tests
-		PixelMapPlus me = new PixelMapPlus("./logo.ppm");
-		//me.crop(350, 50);
-		new DisplayImageWindow(wName, me);
+		/*
+		PixelMapPlus test = new PixelMapPlus("./logo.ppm");
+		//test.crop(350, 50);
+		new DisplayImageWindow("Test", me);
+		*/
 	}
 }
